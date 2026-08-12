@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import { type Book } from "./types/Book";
 import { supabase } from "./supabaseClient";
-
 import BookList from "./components/BookList";
 import AddBookPage from "./components/AddBookPage";
 
@@ -16,13 +15,19 @@ function App() {
   }, []);
 
   async function getBooks() {
+    setLoading(true);
+    setError("");
+
     const { data, error } = await supabase
       .from("books")
       .select("*");
 
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
+
     if (error) {
       console.error(error);
-      setError("Unable to load your books.");
+      setError("Failed to load books.");
       setLoading(false);
       return;
     }
@@ -57,9 +62,7 @@ function App() {
       return;
     }
 
-    setBooks(
-      books.filter((book) => book.id !== id)
-    );
+    setBooks(books.filter((book) => book.id !== id));
   }
 
   async function updateBook(updatedBook: Book) {
@@ -68,7 +71,7 @@ function App() {
       .update({
         title: updatedBook.title,
         author: updatedBook.author,
-        status: updatedBook.status
+        status: updatedBook.status,
       })
       .eq("id", updatedBook.id);
 
@@ -79,16 +82,13 @@ function App() {
 
     setBooks(
       books.map((book) =>
-        book.id === updatedBook.id
-          ? updatedBook
-          : book
+        book.id === updatedBook.id ? updatedBook : book
       )
     );
   }
 
   return (
-    <BrowserRouter>
-
+    <HashRouter>
       <nav>
         <Link to="/">Home</Link> |{" "}
         <Link to="/booklist">Book List</Link> |{" "}
@@ -96,7 +96,6 @@ function App() {
       </nav>
 
       <Routes>
-
         <Route
           path="/"
           element={
@@ -122,14 +121,10 @@ function App() {
 
         <Route
           path="/add"
-          element={
-            <AddBookPage addBook={addBook} />
-          }
+          element={<AddBookPage addBook={addBook} />}
         />
-
       </Routes>
-
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
