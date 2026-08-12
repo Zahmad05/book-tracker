@@ -233,3 +233,70 @@ button:hover {
   width: 400px;
   max-width: 90%;
 }
+
+.tracker-home {
+  padding: 40px 20px;
+}
+
+.tracker-hero {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 45px 30px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.tracker-icon {
+  font-size: 42px;
+  margin-bottom: 5px;
+}
+
+.tracker-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.tracker-hero h1 {
+  margin: 0 0 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tracker-description {
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+.reading-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat-card {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.stat-label {
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .reading-stats {
+    grid-template-columns: 1fr;
+  }
+}
