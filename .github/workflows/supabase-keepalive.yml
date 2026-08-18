@@ -1,0 +1,49 @@
+name: Supabase keep-alive (Book-Tracker)
+on:
+  schedule:
+    - cron: '0 0 * * *'   # once per day at 00:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    env:
+      KEEPALIVE_URL: ${{ secrets.KEEPALIVE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+    steps:
+      - name: Ping Supabase keepalive URL
+        run: |
+          set -euo pipefail
+
+          if [ -z "${KEEPALIVE_URL:-}" ]; then
+            echo "Error: KEEPALIVE_URL secret is not set."
+            exit 1
+          fi
+
+          echo "Pinging $KEEPALIVE_URL"
+
+          attempt=0
+          status=0
+          while [ $attempt -lt 3 ]; do
+            attempt=$((attempt+1))
+            if [ -n "${SUPABASE_ANON_KEY:-}" ]; then
+              status=$(curl -s -o /dev/null -w "%{http_code}" -m 10 \
+                -H "apikey: ${SUPABASE_ANON_KEY}" \
+                -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+                "${KEEPALIVE_URL}" || echo 000)
+            else
+              status=$(curl -s -o /dev/null -w "%{http_code}" -m 10 "${KEEPALIVE_URL}" || echo 000)
+            fi
+
+            echo "Attempt $attempt => HTTP status: $status"
+
+            if [ "$status" -lt 400 ] 2>/dev/null && [ "$status" -ne 000 ]; then
+              echo "Ping success"
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "Ping failed after $attempt attempts (last status: $status)"
+          exit 1
