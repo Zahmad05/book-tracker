@@ -20,20 +20,21 @@ jobs:
             exit 1
           fi
 
+          if [ -z "${SUPABASE_ANON_KEY:-}" ]; then
+            echo "Error: SUPABASE_ANON_KEY secret is not set."
+            exit 1
+          fi
+
           echo "Pinging $KEEPALIVE_URL"
 
           attempt=0
           status=0
           while [ $attempt -lt 3 ]; do
             attempt=$((attempt+1))
-            if [ -n "${SUPABASE_ANON_KEY:-}" ]; then
-              status=$(curl -s -o /dev/null -w "%{http_code}" -m 10 \
-                -H "apikey: ${SUPABASE_ANON_KEY}" \
-                -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
-                "${KEEPALIVE_URL}" || echo 000)
-            else
-              status=$(curl -s -o /dev/null -w "%{http_code}" -m 10 "${KEEPALIVE_URL}" || echo 000)
-            fi
+            status=$(curl -s -o /dev/null -w "%{http_code}" -m 10 \
+              -H "apikey: ${SUPABASE_ANON_KEY}" \
+              -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+              "${KEEPALIVE_URL}" || echo 000)
 
             echo "Attempt $attempt => HTTP status: $status"
 
