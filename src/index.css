@@ -300,3 +300,7 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
+
+.search-button {
+  margin-bottom: 20px;
+}
