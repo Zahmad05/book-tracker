@@ -49,6 +49,10 @@ function DiscoverPage(){
         Find your next read based on your library or what you're in the mood for.
       </p>
 
+        <p className="ai-notice">
+  AI recommendations are temporarily unavailable. Please try again later.
+</p>
+
       <div className="mood-section">
         <label htmlFor="mood">
           What are you in the mood for?
