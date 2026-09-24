@@ -1,5 +1,6 @@
 import { type Book } from "../types/Book";
 import { useState } from "react";
+const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
 
 type Props = {
   addBook: (book: Omit<Book, "id">) => void;
@@ -29,7 +30,7 @@ function AddBookForm({ addBook }: Props) {
 
     try {
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(search)}&key=AIzaSyBiaXi9lC3IhhmTKeVAigdXQFO8Cp2xTVg`
+        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(search)}&key=${apiKey}`
       );
 
       if (!response.ok) {

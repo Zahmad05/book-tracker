@@ -4,6 +4,7 @@ import { type Book } from "./types/Book";
 import { supabase } from "./supabaseClient";
 import BookList from "./components/BookList";
 import AddBookPage from "./components/AddBookPage";
+import DiscoverPage from "./components/DiscoverPage";
 
 function App() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -92,7 +93,8 @@ function App() {
       <nav>
         <Link to="/">Home</Link> |{" "}
         <Link to="/booklist">Book List</Link> |{" "}
-        <Link to="/add">Add Book</Link>
+        <Link to="/add">Add Book</Link> |{" "}
+        <Link to="/discover">Discover Book</Link>
       </nav>
 
       <Routes>
@@ -151,6 +153,11 @@ function App() {
         <Route
           path="/add"
           element={<AddBookPage addBook={addBook} />}
+        />
+
+        <Route
+          path="/discover"
+          element={<DiscoverPage />}
         />
       </Routes>
     </HashRouter>

@@ -304,3 +304,101 @@ button:hover {
 .search-button {
   margin-bottom: 20px;
 }
+.discover-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px 24px;
+}
+
+.discover-page h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.discover-page > p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+/* Mood recommendation section */
+
+.mood-section {
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.mood-section label {
+  display: block;
+  font-weight: 500;
+  color: var(--text-h);
+  margin-bottom: 12px;
+}
+
+.mood-section input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.mood-section button,
+.recommendation-section button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* Recommendation results */
+
+.recommendation-results {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.recommendation-results h2 {
+  margin-bottom: 20px;
+}
+
+.recommendation-card {
+  padding: 22px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.recommendation-card h3 {
+  margin: 0 0 8px;
+  color: var(--text-h);
+}
+
+.recommendation-card p {
+  margin: 6px 0;
+}
+
+/* Library recommendation section */
+
+.recommendation-section {
+  margin-top: 50px;
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+  text-align: left;
+}
+
+.recommendation-section h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
