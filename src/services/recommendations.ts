@@ -21,24 +21,3 @@ export async function getRecommendations(
 
   return data;
 }
-
-export async function getLibraryRecommendations(
-  books: { title: string; author: string }[]
-) {
-  const { data, error } = await supabase.functions.invoke(
-    "gemini-recommendations",
-    {
-      body: {
-        books,
-        mood: "",
-      },
-    }
-  );
-
-  if (error) {
-    console.error("Recommendation error:", error);
-    return;
-  }
-
-  return data;
-}

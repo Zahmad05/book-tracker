@@ -2,7 +2,8 @@ import { GoogleGenAI } from "@google/genai";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 };
 
 Deno.serve(async (req) => {
@@ -33,7 +34,8 @@ Deno.serve(async (req) => {
       )
       .join("\n");
 
-    const prompt = `
+    const prompt = mood.trim()
+      ? `
 A reader has these books in their library:
 
 ${bookList}
@@ -41,7 +43,7 @@ ${bookList}
 They are currently in the mood for:
 ${mood}
 
-Recommend 4 books they might enjoy.
+Recommend 4 books they might enjoy based on both their existing library and their current mood.
 
 Do not recommend any book already in their library.
 
@@ -52,6 +54,29 @@ Return ONLY a JSON array in exactly this format:
     "title": "Book title",
     "author": "Author name",
     "reason": "Short explanation of why this book matches the reader's library and mood."
+  }
+]
+
+Do not include markdown, code fences, or any text outside the JSON array.
+`
+      : `
+A reader has these books in their library:
+
+${bookList}
+
+Based on the books in their library, recommend 4 books they might enjoy.
+
+Use the reader's existing books to identify patterns in their reading taste, such as genres, themes, writing styles, authors, or emotional tone.
+
+Do not recommend any book already in their library.
+
+Return ONLY a JSON array in exactly this format:
+
+[
+  {
+    "title": "Book title",
+    "author": "Author name",
+    "reason": "Short explanation of why this book matches the reader's reading taste."
   }
 ]
 
